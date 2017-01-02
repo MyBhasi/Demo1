@@ -1,0 +1,25 @@
+package demo1
+
+import grails.test.mixin.TestFor
+import grails.test.mixin.Mock
+import spock.lang.Specification
+
+/**
+ * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
+ */
+@TestFor(TestController)
+class TestControllerSpec extends Specification {
+
+    def setup() {
+    }
+
+    def cleanup() {
+    }
+
+    void "test index"() {
+        when:
+        controller.index()
+        then:
+        response.text == 'hello'
+    }
+}
