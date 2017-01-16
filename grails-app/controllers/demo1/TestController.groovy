@@ -3,7 +3,9 @@ package demo1
 import My.Author
 import My.Book
 import grails.converters.JSON
+import grails.util.Environment
 import org.apache.jasper.tagplugins.jstl.core.Url
+import org.springframework.context.i18n.LocaleContextHolder
 
 import javax.net.ssl.HttpsURLConnection
 
@@ -212,6 +214,42 @@ def url()
   render response
 }
 
+def person()
+{
+println person.Person.getPerson()
+    println "bt"
+   render  person.Person.createCriteria().list{
+        between('age',19,25)
+    }
+}
+def locale()
+{
+
+    def locale1=request.getLocale()
+    println(locale1.displayCountry)
+    println"locale"
+    println(locale1.displayLanguage)
+    Locale localeInstance = Locale.getDefault()
+     render (view:'login',model:[localeInstance:localeInstance])
 
 
+}
+
+def submitForm()
+{
+    println(params.locale)
+    def result
+    Environment.executeForCurrentEnvironment {
+        development {
+            result = 'Running in DEV mode.'
+        }
+        production {
+            result = 'Running in production mode.'
+        }
+    test {
+            result = 'Running in custom "myenv" mode.'
+        }
+    }
+    render result
+}
 }
